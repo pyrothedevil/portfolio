@@ -95,41 +95,41 @@ background: linear-gradient(to right, navy, #1e90ff);
   }
 
             .dasset {
-                position: fixed; /* stays in viewport regardless of scrolling */
-                top: -190px;       /* distance from top */
-                left: -90px;      /* distance from left */
-                width: 150px;     /* reduce size */
-                height: auto;    /* keep aspect ratio */
-                z-index: 9999;   /* on top of everything else */
+                position: fixed; 
+                top: -190px;      
+                left: -90px;      
+                width: 150px;  
+                height: auto;   
+                z-index: 9999;   
                 transform: rotate(49.84deg);
 
             }
 
             .dchain {
-                position: fixed; /* stays in viewport regardless of scrolling */
-                top: 390px;       /* distance from top */
-                left: -60px;      /* distance from left */
-                width: 390px;     /* reduce size */
-                height: auto;    /* keep aspect ratio */
-                z-index: 9999;   /* on top of everything else */
+                position: fixed; 
+                top: 390px;    
+                left: -60px;    
+                width: 390px;     
+                height: auto;  
+                z-index: 9999;  
             }
 
             .window-controls {
-                position: fixed; /* Keeps it in place regardless of page resizing */
+                position: fixed; 
                 top: 30px;
-                right: 30px; /* Aligns it to the right instead of using a fixed left value */
+                right: 30px; /
             }
 
             .container{
                 height: 563.4px;
                 width: 660px;
-                background-color: white;
+                background-color: white!important;
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 border-radius: 4px;
                 transform: translate(-50%, -50%);
-                border: 2px solid black; /* Adds a solid black border */
+                border: 2px solid black;
             }
 
             .search-wrapper {
@@ -147,12 +147,12 @@ background: linear-gradient(to right, navy, #1e90ff);
                 border-color: #000000;
                 padding: 5px;
                 text-align: center;
-                padding-left: 40px; /* Space for the magnifying glass icon */
-                width: 280px; /* Adjust the width of the search bar */
-                background-image: url('images/search.png'); /* Path to the magnifying glass image */
-                background-position: 10px center; /* Position the icon inside the input */
+                padding-left: 40px;
+                width: 280px; 
+                background-image: url('images/search.png');
+                background-position: 10px center; 
                 background-repeat: no-repeat;
-                background-size: 20px 20px; /* Adjust size of the icon */
+                background-size: 20px 20px; 
             }
 
             #search::placeholder {
@@ -166,12 +166,12 @@ background: linear-gradient(to right, navy, #1e90ff);
     justify-content: left;
     flex-wrap: wrap;
     max-width: 700px;
-    max-height: 700px;   /* <-- re-add this */
-    overflow-y: auto;    /* <-- critical */
+    max-height: 700px;  
+    overflow-y: auto;  
     margin: 1px auto;
     padding: 7.2px;
     padding-right: 10px;
-    gap: 1px; /* Espacement entre les onglets */
+    gap: 1px; 
     font-family: 'OCR A Std', Tahoma, sans-serif;
 }
 
@@ -194,15 +194,15 @@ background: linear-gradient(to right, navy, #1e90ff);
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: 1.5px; /* This is the height of the top border */
+                height: 1.5px; 
                 background: linear-gradient(to left, #63192F 73.5%, transparent 50%);
-                border-radius: 4px 4px 0 0; /* Match the border-radius of the tab */
+                border-radius: 4px 4px 0 0; 
             }
 
             
             .mytabs label {
-                width: 170.2px; /* Set a fixed width for the tab box */
-                height: 30px; /* Set a fixed height */
+                width: 170.2px;
+                height: 30px; 
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -232,8 +232,8 @@ background: linear-gradient(to right, navy, #1e90ff);
                 background: #fff;
                 color: #63192F;
                 border: 2px solid #63192F;
-                border-radius: 2px; /* Add border to selected tab */
-                border-bottom: none; /* Avoid double border */
+                border-radius: 2px; 
+                border-bottom: none; 
             }
 
             .tab-content {
@@ -254,7 +254,7 @@ background: linear-gradient(to right, navy, #1e90ff);
             .tab-list {
                 display: grid;
                 grid-template-columns: repeat(2, auto);
-                gap: 0 20px; /* spacing between columns */
+                gap: 0 20px;
                 text-align: right;
                 margin-top: 10px;
             }
@@ -271,8 +271,8 @@ background: linear-gradient(to right, navy, #1e90ff);
                 font-size: 18px;
                 word-spacing: -10px;
                 background-color: #D9D9D9;
-                padding: 4px 8px; /* top/bottom + left/right padding */
-                line-height: 1.2; /* optional for better balance */
+                padding: 4px 8px; 
+                line-height: 1.2;
             }
 
 
@@ -350,7 +350,7 @@ background: linear-gradient(to right, navy, #1e90ff);
             .cd-wrapper {
             display: flex;
             flex-direction: column;
-            align-items: center; /* centers both CD and slider horizontally */
+            align-items: center; 
             margin-top: -100px;
             margin-right: 0px;
             margin-bottom: 5px;
@@ -358,7 +358,7 @@ background: linear-gradient(to right, navy, #1e90ff);
             }
 
             .cd-container {
-    position: relative; /* makes sure popup is positioned relative to CD */
+    position: relative; 
     display: inline-block;
 }
 .popup-track {
@@ -402,7 +402,7 @@ background: linear-gradient(to right, navy, #1e90ff);
   background-size: cover;
   background-position: center;
   margin-top: 10px;
-  flex-shrink: 0;              /* <-- Prevent image from shrinking */
+  flex-shrink: 0;             
 }
 
 .track-info {
@@ -780,6 +780,12 @@ background: linear-gradient(to right, navy, #1e90ff);
     }
 
 }
+               @media (prefers-color-scheme: dark) {
+        .container {
+            background-color: white !important;
+            color: black !important;
+        }
+    }
 
  </style>
     </head>
