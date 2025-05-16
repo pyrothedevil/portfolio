@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="color-scheme" content="light">
         <title>Pyro Devil</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">  
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -96,41 +95,41 @@ background: linear-gradient(to right, navy, #1e90ff);
   }
 
             .dasset {
-                position: fixed; 
-                top: -190px;  
-                left: -90px;   
-                width: 150px;     
-                height: auto;   
-                z-index: 9999; 
+                position: fixed; /* stays in viewport regardless of scrolling */
+                top: -190px;       /* distance from top */
+                left: -90px;      /* distance from left */
+                width: 150px;     /* reduce size */
+                height: auto;    /* keep aspect ratio */
+                z-index: 9999;   /* on top of everything else */
                 transform: rotate(49.84deg);
 
             }
 
             .dchain {
-                position: fixed; 
-                top: 390px;     
-                left: -60px;     
-                width: 390px;  
-                height: auto;   
-                z-index: 9999;  
+                position: fixed; /* stays in viewport regardless of scrolling */
+                top: 390px;       /* distance from top */
+                left: -60px;      /* distance from left */
+                width: 390px;     /* reduce size */
+                height: auto;    /* keep aspect ratio */
+                z-index: 9999;   /* on top of everything else */
             }
 
             .window-controls {
-                position: fixed;
+                position: fixed; /* Keeps it in place regardless of page resizing */
                 top: 30px;
-                right: 30px;
+                right: 30px; /* Aligns it to the right instead of using a fixed left value */
             }
 
-        .container{
+            .container{
                 height: 563.4px;
                 width: 660px;
-                background-color: white; !important
+                background-color: white;
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 border-radius: 4px;
                 transform: translate(-50%, -50%);
-                border: 2px solid black; 
+                border: 2px solid black; /* Adds a solid black border */
             }
 
             .search-wrapper {
@@ -148,12 +147,12 @@ background: linear-gradient(to right, navy, #1e90ff);
                 border-color: #000000;
                 padding: 5px;
                 text-align: center;
-                padding-left: 40px; 
-                width: 280px; 
-                background-image: url('images/search.png'); 
-                background-position: 10px center; 
+                padding-left: 40px; /* Space for the magnifying glass icon */
+                width: 280px; /* Adjust the width of the search bar */
+                background-image: url('images/search.png'); /* Path to the magnifying glass image */
+                background-position: 10px center; /* Position the icon inside the input */
                 background-repeat: no-repeat;
-                background-size: 20px 20px; 
+                background-size: 20px 20px; /* Adjust size of the icon */
             }
 
             #search::placeholder {
@@ -167,12 +166,12 @@ background: linear-gradient(to right, navy, #1e90ff);
     justify-content: left;
     flex-wrap: wrap;
     max-width: 700px;
-    max-height: 700px;   
-    overflow-y: auto;   
+    max-height: 700px;   /* <-- re-add this */
+    overflow-y: auto;    /* <-- critical */
     margin: 1px auto;
     padding: 7.2px;
     padding-right: 10px;
-    gap: 1px;
+    gap: 1px; /* Espacement entre les onglets */
     font-family: 'OCR A Std', Tahoma, sans-serif;
 }
 
@@ -195,15 +194,15 @@ background: linear-gradient(to right, navy, #1e90ff);
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: 1.5px; 
+                height: 1.5px; /* This is the height of the top border */
                 background: linear-gradient(to left, #63192F 73.5%, transparent 50%);
-                border-radius: 4px 4px 0 0; 
+                border-radius: 4px 4px 0 0; /* Match the border-radius of the tab */
             }
 
             
             .mytabs label {
-                width: 170.2px; 
-                height: 30px; 
+                width: 170.2px; /* Set a fixed width for the tab box */
+                height: 30px; /* Set a fixed height */
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -233,8 +232,8 @@ background: linear-gradient(to right, navy, #1e90ff);
                 background: #fff;
                 color: #63192F;
                 border: 2px solid #63192F;
-                border-radius: 2px; 
-                border-bottom: none; 
+                border-radius: 2px; /* Add border to selected tab */
+                border-bottom: none; /* Avoid double border */
             }
 
             .tab-content {
@@ -255,7 +254,7 @@ background: linear-gradient(to right, navy, #1e90ff);
             .tab-list {
                 display: grid;
                 grid-template-columns: repeat(2, auto);
-                gap: 0 20px; 
+                gap: 0 20px; /* spacing between columns */
                 text-align: right;
                 margin-top: 10px;
             }
@@ -272,8 +271,8 @@ background: linear-gradient(to right, navy, #1e90ff);
                 font-size: 18px;
                 word-spacing: -10px;
                 background-color: #D9D9D9;
-                padding: 4px 8px; 
-                line-height: 1.2; 
+                padding: 4px 8px; /* top/bottom + left/right padding */
+                line-height: 1.2; /* optional for better balance */
             }
 
 
@@ -351,7 +350,7 @@ background: linear-gradient(to right, navy, #1e90ff);
             .cd-wrapper {
             display: flex;
             flex-direction: column;
-            align-items: center; 
+            align-items: center; /* centers both CD and slider horizontally */
             margin-top: -100px;
             margin-right: 0px;
             margin-bottom: 5px;
@@ -359,7 +358,7 @@ background: linear-gradient(to right, navy, #1e90ff);
             }
 
             .cd-container {
-    position: relative; 
+    position: relative; /* makes sure popup is positioned relative to CD */
     display: inline-block;
 }
 .popup-track {
@@ -403,7 +402,7 @@ background: linear-gradient(to right, navy, #1e90ff);
   background-size: cover;
   background-position: center;
   margin-top: 10px;
-  flex-shrink: 0;          
+  flex-shrink: 0;              /* <-- Prevent image from shrinking */
 }
 
 .track-info {
@@ -430,7 +429,7 @@ background: linear-gradient(to right, navy, #1e90ff);
 
 
             .slider_container {
-                margin-top: 15.8px; 
+                margin-top: 15.8px; /* adds some space below CD image */
                 margin-left: 11.2px;
                 display: flex;
                 align-items: center;
@@ -459,29 +458,29 @@ background: linear-gradient(to right, navy, #1e90ff);
 .seek_slider {
     appearance: none;
     height: 5px;
-    background: #000000; 
+    background: #000000; /* default background color */
     margin-top: 4.2px;
     margin-left: 1px;
     margin-right: 1px;
-    cursor: url('images/pointer.png'), pointer; 
-    transition: background-color 0.2s ease; 
-    border-radius: 5px; 
+    cursor: url('images/pointer.png'), pointer; /* Custom pointer image */
+    transition: background-color 0.2s ease; /* Smooth transition for background color change */
+    border-radius: 5px; /* Optional: makes the slider edges rounded */
 }
 
-
+/* Thumb (circle) styling with custom transparent image for WebKit browsers */
 .seek_slider::-webkit-slider-thumb {
     appearance: none;
-    width: 30px;
+    width: 30px; /* Adjust the size based on your image */
     height: 30px;
-    background-image: url('images/pointer.png'); 
-    background-size: cover; 
-    background-repeat: no-repeat; 
-    border: none; 
-    background-color: transparent; 
-    cursor: pointer;
+    background-image: url('images/pointer.png'); /* Custom transparent image for the thumb */
+    background-size: cover; /* Ensures the image fits the thumb */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    border: none; /* Removes any border that might cover the image */
+    background-color: transparent; /* Makes sure the background is transparent */
+    cursor: pointer; /* Cursor when hovering over the thumb */
 }
 
-
+/* Optional: Add style for Firefox */
 .seek_slider::-moz-range-thumb {
     width: 30px;
     height: 30px;
@@ -489,7 +488,7 @@ background: linear-gradient(to right, navy, #1e90ff);
     background-size: cover;
     background-repeat: no-repeat;
     border: none;
-    background-color: transparent; 
+    background-color: transparent; /* Ensures transparency */
     cursor: pointer;
 }
 
@@ -507,7 +506,7 @@ background: linear-gradient(to right, navy, #1e90ff);
   z-index: 20;
            
             display: flex;
-            align-items: center; 
+            align-items: center; /* Vertically centers icon + slider */
             gap: 0px;
             margin-bottom: 5px;
             margin-left: 5px;
@@ -528,7 +527,7 @@ background: linear-gradient(to right, navy, #1e90ff);
             .volume_slider {
             display: none;
             position: absolute;
-            bottom: 30px; 
+            bottom: 30px; /* moves it *above* the icon */
             left: 25px;
             transform: rotate(-90deg);
             transform-origin: left bottom;
@@ -605,6 +604,7 @@ background: linear-gradient(to right, navy, #1e90ff);
 .next {
   right: 5px;
 }
+/* Zoom effect class */
 .zoomed {
   transform: scale(1.5);
   transition: transform 0.3s ease-in-out;
@@ -678,6 +678,7 @@ background: linear-gradient(to right, navy, #1e90ff);
   display: block;
 }
 
+/* Nav buttons */
 .prev, .next {
   position: absolute;
   top: 50%;
@@ -765,28 +766,20 @@ background: linear-gradient(to right, navy, #1e90ff);
 
 @media (max-width: 780px) {
   body {
-    transform: scale(0.5); 
-           background-size: 130vw 60vh;
+    transform: scale(0.5); /* Scales everything by 80% */
+           background-size: 130vw 60vh; /* Reduce the background size relative to the viewport width */
+
 }
 .popup {
-        position: fixed; 
-        top: 50%;
-        left: 50%; 
-        transform: translate(-50%, -50%);
-        width: 80%;
-        max-width: 300px; 
+        position: fixed; /* Use fixed positioning to ensure it's centered on the page */
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -50%); /* Offset by half of its own width and height */
+        width: 80%; /* Adjust width to make it responsive */
+        max-width: 300px; /* Set a maximum width to avoid overflow on large screens */
     }
 
 }
-            
-
-@media (prefers-color-scheme: dark) {
-    .container {
-        background-color: white !important;
-        color: black !important;
-    }
-}
-
 
  </style>
     </head>
@@ -872,7 +865,7 @@ background: linear-gradient(to right, navy, #1e90ff);
             <div class="track-name"></div>
             <div class="track-artist"></div>
         </div>
-    </div> 
+    </div> <!-- closes popup-track -->
                         </div>
                                 <div class="slider_container">
                                     <div class="buttons">
@@ -924,15 +917,18 @@ background: linear-gradient(to right, navy, #1e90ff);
                     </div>
 <script>
   
+// === Mobile Popup Fallback for .popup-track ===
 const cdPlayer = document.querySelector('.cd-player');
 const popupTrack = document.querySelector('.popup-track');
 
+// Only run this logic on touch devices
 if (cdPlayer && popupTrack && ('ontouchstart' in window || navigator.maxTouchPoints)) {
   cdPlayer.addEventListener('click', e => {
     e.stopPropagation();
     popupTrack.classList.toggle('visible');
   });
 
+  // Hide popup if user taps outside
   document.addEventListener('click', e => {
     if (!cdPlayer.contains(e.target) && !popupTrack.contains(e.target)) {
       popupTrack.classList.remove('visible');
@@ -961,6 +957,7 @@ if (cdPlayer && popupTrack && ('ontouchstart' in window || navigator.maxTouchPoi
     };
   });
 document.addEventListener("DOMContentLoaded", () => {
+  // === Popup Drag & Close ===
   const popup = document.getElementById('popup');
   const header = popup.querySelector('.popup-header');
   const closeBtn = document.getElementById('closeBtn');
@@ -984,6 +981,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener('mouseup', () => { isDragging = false; });
 
+  // === Tabs logic ===
   const tabsContainer = document.querySelector(".mytabs");
   const tabs = document.querySelectorAll(".mytabs input[type='radio']");
 
@@ -1010,6 +1008,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateIcons();
   document.querySelector(".mytabs input:checked")?.dispatchEvent(new Event('change'));
 
+  // === Music Player ===
   const music_list = [
     { img: 'music/albums/mimew.jpg', name: 'Mimew', artist: 'YEZI', music: 'music/YEZI - Mimew.mp3' },
     { img: 'music/albums/lifeifself.jpg', name: 'Life Itself', artist: 'Glass Animals', music: 'music/Glass Animals - Life Itself.mp3' },
@@ -1108,6 +1107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   
 
+  // === Gallery Logic ===
   const galleryBoxIllu = document.querySelector('.gallery-box');
   const imageFilesIllu = [
     'illu/1.png', 'illu/2.png','illu/2-1.png', 'illu/3.png', 'illu/4.png',
