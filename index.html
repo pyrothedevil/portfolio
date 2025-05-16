@@ -46,6 +46,7 @@
                 background-repeat: no-repeat;
                 background-size: 700px 760px;
                 background-color: black;
+                color: white;
                 margin: 0;
                 padding: 0;
                 height: 100vh; 
@@ -480,26 +481,26 @@ background: linear-gradient(to right, navy, #1e90ff);
 .seek_slider {
     appearance: none;
     height: 5px;
-    background: #000000; /* default background color */
+    background: #000000; 
     margin-top: 4.2px;
     margin-left: 1px;
     margin-right: 1px;
-    cursor: url('images/pointer.png'), pointer; /* Custom pointer image */
-    transition: background-color 0.2s ease; /* Smooth transition for background color change */
-    border-radius: 5px; /* Optional: makes the slider edges rounded */
+    cursor: url('images/pointer.png'), pointer; 
+    transition: background-color 0.2s ease; 
+    border-radius: 5px; 
 }
 
-/* Thumb (circle) styling with custom transparent image for WebKit browsers */
+
 .seek_slider::-webkit-slider-thumb {
     appearance: none;
-    width: 30px; /* Adjust the size based on your image */
+    width: 30px; 
     height: 30px;
-    background-image: url('images/pointer.png'); /* Custom transparent image for the thumb */
-    background-size: cover; /* Ensures the image fits the thumb */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-    border: none; /* Removes any border that might cover the image */
-    background-color: transparent; /* Makes sure the background is transparent */
-    cursor: pointer; /* Cursor when hovering over the thumb */
+    background-image: url('images/pointer.png'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    border: none;
+    background-color: transparent;
+    cursor: pointer; 
 }
 
 /* Optional: Add style for Firefox */
@@ -528,7 +529,7 @@ background: linear-gradient(to right, navy, #1e90ff);
   z-index: 20;
            
             display: flex;
-            align-items: center; /* Vertically centers icon + slider */
+            align-items: center; 
             gap: 0px;
             margin-bottom: 5px;
             margin-left: 5px;
@@ -549,7 +550,7 @@ background: linear-gradient(to right, navy, #1e90ff);
             .volume_slider {
             display: none;
             position: absolute;
-            bottom: 30px; /* moves it *above* the icon */
+            bottom: 30px; 
             left: 25px;
             transform: rotate(-90deg);
             transform-origin: left bottom;
@@ -626,7 +627,7 @@ background: linear-gradient(to right, navy, #1e90ff);
 .next {
   right: 5px;
 }
-/* Zoom effect class */
+
 .zoomed {
   transform: scale(1.5);
   transition: transform 0.3s ease-in-out;
@@ -700,7 +701,7 @@ background: linear-gradient(to right, navy, #1e90ff);
   display: block;
 }
 
-/* Nav buttons */
+
 .prev, .next {
   position: absolute;
   top: 50%;
