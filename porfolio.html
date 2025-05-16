@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pyro Devil</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+        <style>
+           @font-face {
+                font-family: 'OCR A Std';
+                src: url('fonts/OCR-A-Std.otf') format('opentype');
+                font-weight: normal;
+                font-style: normal;
+            }
+            
+            body {
+                position: absolute;
+                background-image: url('images/frame.png');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: 700px 760px;
+                background-color: black;
+                margin: 0;
+                padding: 0;
+                position: static; 
+                height: 100vh; 
+                width: 100vw; 
+                overflow: hidden; 
+            }
+
+            .popup {
+
+    position: absolute;
+    top: 350px;
+    left: 400px;
+    width: 300px;
+    height: max-content;
+    border: 2px solid #000;
+    box-shadow: inset -1px -1px #fff, inset 1px 1px #808080;
+    background: #C0C0C0;
+      z-index: 10000;
+  }
+
+  .popup-header {
+background: linear-gradient(to right, navy, #1e90ff);
+    color: white;
+    padding: 2px 5px;
+    cursor: move;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .popup-header .title {
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .popup-header .close-btn {
+    background: #C0C0C0;
+    border: 2px outset #fff;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    line-height: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
+  }
+
+  .popup-content {
+    padding: 15px;
+    font-size: 12px;
+  }
+
+  .popup-buttons {
+    text-align: center;
+ 
+    padding: 5px;
+  }
+
+  .popup-buttons button {
+    font-family: 'MS Sans Serif', Tahoma, sans-serif;
+    font-size: 12px;
+    padding: 2px 8px;
+    border: 2px outset black;
+    background: #C0C0C0;
+    cursor: pointer;
+  }
+
+  .popup-buttons button:active {
+    border: 2px inset #fff;
+  }
+
+            .dasset {
+                position: fixed; /* stays in viewport regardless of scrolling */
+                top: -190px;       /* distance from top */
+                left: -90px;      /* distance from left */
+                width: 150px;     /* reduce size */
+                height: auto;    /* keep aspect ratio */
+                z-index: 9999;   /* on top of everything else */
+                transform: rotate(49.84deg);
+
+            }
+
+            .dchain {
+                position: fixed; /* stays in viewport regardless of scrolling */
+                top: 390px;       /* distance from top */
+                left: -60px;      /* distance from left */
+                width: 390px;     /* reduce size */
+                height: auto;    /* keep aspect ratio */
+                z-index: 9999;   /* on top of everything else */
+            }
+
+            .window-controls {
+                position: fixed; /* Keeps it in place regardless of page resizing */
+                top: 30px;
+                right: 30px; /* Aligns it to the right instead of using a fixed left value */
+            }
+
+            .container{
+                height: 563.4px;
+                width: 660px;
+                background-color: white;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                border-radius: 4px;
+                transform: translate(-50%, -50%);
+                border: 2px solid black; /* Adds a solid black border */
+            }
+
+            .search-wrapper {
+            display: flex;
+            gap: 5px;
+            margin-left: 55%;
+            margin-top: 2%;
+            }
+
+            #search {
+                font-family: 'OCR A Std', "Tahoma", sans-serif;
+                font-size: 18px;
+                border-radius: 4px;
+                border-width: 2px;
+                border-color: #000000;
+                padding: 5px;
+                text-align: center;
+                padding-left: 40px; /* Space for the magnifying glass icon */
+                width: 280px; /* Adjust the width of the search bar */
+                background-image: url('images/search.png'); /* Path to the magnifying glass image */
+                background-position: 10px center; /* Position the icon inside the input */
+                background-repeat: no-repeat;
+                background-size: 20px 20px; /* Adjust size of the icon */
+            }
+
+            #search::placeholder {
+                font-family: 'OCR A Std', "Tahoma", sans-serif;
+                font-size: 16px;
+                color: black;
+            }
+
+            .mytabs {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    max-width: 700px;
+    max-height: 700px;   /* <-- re-add this */
+    overflow-y: auto;    /* <-- critical */
+    margin: 1px auto;
+    padding: 7.2px;
+    padding-right: 10px;
+    gap: 1px; /* Espacement entre les onglets */
+    font-family: 'OCR A Std', Tahoma, sans-serif;
+}
+
+            .mytabs input[type="radio"] {
+                display: none;
+            }
+
+            .tab {
+                position: relative;
+                border: 2px solid #63192F;
+                border-top: none;
+                border-radius: 0px 4px 4px 4px;
+                margin-top: -2px;
+            }
+            
+
+            .tab::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 1.5px; /* This is the height of the top border */
+                background: linear-gradient(to left, #63192F 73.5%, transparent 50%);
+                border-radius: 4px 4px 0 0; /* Match the border-radius of the tab */
+            }
+
+            
+            .mytabs label {
+                width: 170.2px; /* Set a fixed width for the tab box */
+                height: 30px; /* Set a fixed height */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #63192F;
+                border-radius: 2px 2px 0 0;
+                cursor: pointer;
+                font-size: 11.6px; 
+                padding: 0; 
+                color: white;
+                border: 1px solid transparent;
+            }
+            
+            .mytabs .tab {
+                width: 100%;
+                max-height: 440px;
+                padding: 10px;
+                overflow-y: auto;
+                background: #fff;
+                order: 1;
+                display: none;
+            }
+        
+            .mytabs input[type='radio']:checked + label + .tab {
+                display: block;
+            }
+            .mytabs input[type="radio"]:checked + label {
+                background: #fff;
+                color: #63192F;
+                border: 2px solid #63192F;
+                border-radius: 2px; /* Add border to selected tab */
+                border-bottom: none; /* Avoid double border */
+            }
+
+            .tab-content {
+                display: flex;
+                align-items: flex-start;
+                gap: 70px;
+                position: relative;
+            }
+
+            .tab img.frame {
+                width: 270px;
+                height: auto;
+                border-radius: 8px;
+                flex-shrink: 0;
+                margin-top: 50px;
+            }
+
+            .tab-list {
+                display: grid;
+                grid-template-columns: repeat(2, auto);
+                gap: 0 20px; /* spacing between columns */
+                text-align: right;
+                margin-top: 10px;
+            }
+
+            .tab-list, 
+            .tab-list h2, 
+            .tab-list ul, 
+            .tab-list li {
+                font-family: 'OCR A Std', Tahoma, sans-serif;
+                line-height: 1.4;
+
+            }
+            .tab-list h2 {
+                font-size: 18px;
+                word-spacing: -10px;
+                background-color: #D9D9D9;
+                padding: 4px 8px; /* top/bottom + left/right padding */
+                line-height: 1.2; /* optional for better balance */
+            }
+
+
+            .tab-list li {
+                font-size: 12.5px;
+            }
+
+            .tab-column ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+
+            .tab-column li {
+                line-height: 1.6;
+            }
+
+            .tab-column ul li a:link{
+                text-decoration: none;
+                color:#000000;
+                
+            }
+
+            .tab-column ul li a:visited{
+                text-decoration: none;
+                color:#000000;
+                
+            }
+
+            .tab-column ul li a:hover, a:active {
+            background-color: #63192F;
+            color: white;
+            }
+
+            .tab-content h2 {
+                margin-top: 0;
+            }
+
+            .tab-content ul {
+                padding-left: 20px;
+            }
+            #tabmenu:checked ~ .tab {
+  max-height: none !important;
+  overflow: visible !important;
+  height: auto !important;
+}
+
+            label {
+                position: relative;
+                display: inline-block;
+            }
+
+            .icon {
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 20px;
+                height: 20px;
+            }
+
+            .music-player {
+            margin-top: -190.4px;
+            text-align: right;
+            margin-right: 0px;
+            margin-bottom: 40px;
+            margin-left: 63.0px;
+            }
+
+            .cd-player {
+            width: 190px;
+            height: auto;
+            margin-left: 30px;
+            }
+            .cd-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* centers both CD and slider horizontally */
+            margin-top: -100px;
+            margin-right: 0px;
+            margin-bottom: 5px;
+            margin-left: 190px;
+            }
+
+            .cd-container {
+    position: relative; /* makes sure popup is positioned relative to CD */
+    display: inline-block;
+}
+.popup-track {
+    opacity: 0;
+  pointer-events: none;
+    transition: opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    background-size: contain;
+    background-position: center;
+    background-image: url('music/téléchargement.jpg');
+    background-repeat: no-repeat;
+    z-index: 10;
+    top: -167.6px;
+    margin-left: -28.4px;
+    padding: 20px;
+    width: 250px;
+    min-height: 150px;
+    text-align: left;
+    color: #2b2b2b;
+    font-size: 11px;
+    font-family: 'OCR A Std', Tahoma, sans-serif;
+    gap: 15px;
+}
+
+.cd-player:hover + .popup-track {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.popup-track.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+.track-art {
+  width: 78.4px;
+  height: 78.4px;
+  background-size: cover;
+  background-position: center;
+  margin-top: 10px;
+  flex-shrink: 0;              /* <-- Prevent image from shrinking */
+}
+
+.track-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 25px;
+  margin-left: 15px;
+  gap: 5px;
+}
+
+            .cd-player.rotate {
+                animation: spin 10s linear infinite;
+            }
+
+            @keyframes spin {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+
+            .slider_container {
+                margin-top: 15.8px; /* adds some space below CD image */
+                margin-left: 11.2px;
+                display: flex;
+                align-items: center;
+                gap: 0px;
+                transform: scale(0.6);
+            }
+            .time .slider_container .current-time,
+            .slider_container .total-duration,
+            .slider_container a {
+                font-family: 'OCR A Std', Tahoma, sans-serif;
+                font-size: 14px; 
+            }
+            .buttons {
+            display: flex;
+            margin-bottom: 10.2px;
+            margin-right: 32.6px;
+            margin-left: -5.2px;
+            transform: scale(1.4);    
+            }
+
+            .time{
+                display:flex;
+                margin-left: -17.4px;
+                gap: 2px;
+            }
+.seek_slider {
+    appearance: none;
+    height: 5px;
+    background: #000000; /* default background color */
+    margin-top: 4.2px;
+    margin-left: 1px;
+    margin-right: 1px;
+    cursor: url('images/pointer.png'), pointer; /* Custom pointer image */
+    transition: background-color 0.2s ease; /* Smooth transition for background color change */
+    border-radius: 5px; /* Optional: makes the slider edges rounded */
+}
+
+/* Thumb (circle) styling with custom transparent image for WebKit browsers */
+.seek_slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 30px; /* Adjust the size based on your image */
+    height: 30px;
+    background-image: url('images/pointer.png'); /* Custom transparent image for the thumb */
+    background-size: cover; /* Ensures the image fits the thumb */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    border: none; /* Removes any border that might cover the image */
+    background-color: transparent; /* Makes sure the background is transparent */
+    cursor: pointer; /* Cursor when hovering over the thumb */
+}
+
+/* Optional: Add style for Firefox */
+.seek_slider::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    background-image: url('images/pointer.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: transparent; /* Ensures transparency */
+    cursor: pointer;
+}
+
+
+
+              .playpause-track{
+            padding: 25px;
+            opacity: 0.8;
+            transition: opacity .2s;
+            }
+
+    
+              .volume-container {
+  position: relative;
+  z-index: 20;
+           
+            display: flex;
+            align-items: center; /* Vertically centers icon + slider */
+            gap: 0px;
+            margin-bottom: 5px;
+            margin-left: 5px;
+            }
+
+            .volume-container img {
+            width: 70%; 
+            height: auto;
+            }
+           .volume-icon {
+  display: block !important;
+  width: 40px !important;
+  height: 40px !important;
+  z-index: 999 !important;
+  position: relative !important;
+}
+
+            .volume_slider {
+            display: none;
+            position: absolute;
+            bottom: 30px; /* moves it *above* the icon */
+            left: 25px;
+            transform: rotate(-90deg);
+            transform-origin: left bottom;
+            width: 100px;
+            height: 30px;
+            transition: all 0.2s ease;
+        }
+
+
+
+     
+     .gallery-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  gap: 10px; 
+  grid-auto-rows: 245px;
+  margin-top: 10px;
+}
+
+.gallery-container {
+  overflow: hidden;
+  position: relative;
+  border-radius: 15px;
+  border: 3px solid #000000;
+  width: 195px;
+  height: 225px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 40px;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+.image-gallery {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+
+.image-gallery img,
+.image-gallery video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+.image-gallery img.active,
+.image-gallery video.active {
+  display: block;
+}
+
+/* Nav buttons */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 5px 10px;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+.prev {
+  left: 5px;
+}
+
+.next {
+  right: 5px;
+}
+/* Zoom effect class */
+.zoomed {
+  transform: scale(1.5);
+  transition: transform 0.3s ease-in-out;
+  cursor: zoom-out;
+}
+
+.overlay img,
+.overlay video {
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: 0 0 15px #000;
+  transition: transform 0.3s ease-in-out;
+  cursor: zoom-in;
+}
+
+
+.close-overlay {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+
+.gallery-box-design {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  gap: 10px; 
+  grid-auto-rows: 245px;
+  margin-top: 10px;
+}
+
+.gallery-container-design {
+  overflow: hidden;
+  position: relative;
+  border-radius: 15px;
+  border: 3px solid #000000;
+  width: 195px;
+  height: 225px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 40px;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+.image-gallery-design {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+
+.image-gallery-design img,
+.image-gallery-design video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+.image-gallery-design img.active,
+.image-gallery-design video.active {
+  display: block;
+}
+
+/* Nav buttons */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 5px 10px;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+.prev {
+  left: 5px;
+}
+
+.next {
+  right: 5px;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.overlay img,
+.overlay video {
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: 0 0 15px #000;
+}
+
+.close-overlay {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  z-index: 1001;
+}
+.clickgrid {
+  position: absolute;
+  top: 47.0vh;
+  left: 50px;
+  max-width: 156px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  z-index: 9999;
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  display: block;
+  margin: auto;
+  max-width: 90%;
+  max-height: 90%;
+    z-index: 9999;
+}
+
+.close {
+  position: absolute;
+  top: 20px; right: 35px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+       @media (max-width: 600px) {
+
+
+        body {
+            background-size: 90vw auto;
+        }
+
+                 .popup {
+
+    position: absolute;
+    top: 350px;
+    left: 130px;
+    width: 300px;
+    height: max-content;
+    border: 2px solid #000;
+    box-shadow: inset -1px -1px #fff, inset 1px 1px #808080;
+    background: #C0C0C0;
+      z-index: 10000;
+      transform: scale(0.7);
+  }
+
+        .container{
+            height: 340.0px;
+            width: 354.8px;
+            top: 51.4%;
+        }
+
+        .dasset{
+            top: -91.4px;
+            left:-69.6px;
+          width: 78.4px;
+           height: auto;
+           position: absolute;
+        }
+
+        .dchain{
+            top: 243.8px;
+            left:-32px;
+            width: 151.8px;
+            height: auto;
+            position: absolute;
+        }
+        .search-wrapper{
+            margin-top: 1px;
+            margin-left: 33.2%;
+            transform: scale(0.7);
+        }
+
+        .mytabs label{
+            width: 108.0px;
+            font-size: 10.4px;
+        }
+
+        .icon{
+           display: none;
+        }
+
+        .tab::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 1.5px; /* This is the height of the top border */
+                background: linear-gradient(to left, #63192F 67.75%, transparent 50%);
+                border-radius: 4px 4px 0 0; /* Match the border-radius of the tab */
+            }
+
+            /* Specific gradient size only for tabmenu's tab */
+#tabmenu:checked ~ label[for="tabmenu"] + .tab::before {
+    background: linear-gradient(to left, #63192F 79,99%, transparent 50%);
+}
+
+
+        .tab img.frame{
+                width: 165.4px;
+                height: auto;
+                margin-top: -0.8px;
+            }
+
+            .tab-content {
+            transform: scale(0.8);
+            transform-origin: top left;
+            gap: 1px;
+        }
+        .tab-list h2 {
+                font-size: 14px;
+                word-spacing: -10px;
+                background-color: #D9D9D9;
+                padding: 2px 3px; /* top/bottom + left/right padding */
+                line-height: 0.9; /* optional for better balance */
+            }
+
+        .music-player{
+            transform: scale(0.5);
+            margin-left: 164.4px;
+            margin-bottom: -65.0px;
+            margin-top: -125.0px;
+            text-align: center;
+        }
+
+        .cd-player{
+            margin-left:-258.2px;
+        }
+
+        
+
+        .slider_container{
+            margin-left: -275.4px;
+            margin-bottom: -10px;
+        }
+
+        .mytabs .tab {
+            max-width: 94.8%;
+            max-height: 231.8px;
+        }
+   
+        .gallery-box{
+            padding-left: 20px;
+        }
+        .gallery-box-design{
+            padding-left: 20px;
+        }
+
+        .popup-track{
+            margin-left: -276.0px;
+        }
+
+     .clickgrid {
+       top: 167.4px;
+       width: 22.8vw;
+       left:6.4vw;
+    }
+     }
+
+
+ </style>
+    </head>
+    <body>
+
+                
+                    <div class="popup" id="popup">
+        <div class="popup-header">
+            <div class="title">Softwares</div>
+            <div class="close-btn" id="closeBtn">X</div>
+        </div>
+        <div class="popup-content">
+            <p>*Paint tool sai  -> illustration, drawing</p>
+            <p>*Photoshop  -> photo editing</p>
+            <p>*Illustrator -> logo, brand identity</p>
+            <p>*Indesign -> print design</p>
+            <p>*Premiere Pro -> video editing</p>
+            <p>*After Effect -> motion design</p>
+            <p>*Figma -> UI/UX</p>
+            <p>*Blender -> 3D visuals</p>
+        </div>
+            <div class="popup-buttons">
+                <button>OK</button>
+            </div>
+        </div>
+        <div class="content"> 
+            <div class="container">
+                <div class="asset">
+                    <img src="images/star2.png" alt="star2" class="dasset">
+                    <img src="images/chain.png" alt="chain" class="dchain">
+                </div>
+                <div class="search-wrapper">
+                    <input type="search" id="search" placeholder="portfolio.exe">
+                </div>
+                <div class="mytabs">
+                    <input type="radio" id="tabmenu" name="mytabs" checked="checked">
+                    <label for="tabmenu">
+                        profil
+                        <img src="images/Cross.svg" alt="cross Icon" class="icon">
+                    </label>
+                    <div class="tab">
+                   
+                      <div class="tab-content">
+                        <img src="images/paint.png" alt="avatar" class="frame">
+                        <div class="tab-list">
+                            <div class="tab-column">
+  <h2>socials</h2>
+  <ul>
+    <li><a href="https://www.instagram.com/pyro_devil/" target="_blank" rel="noopener noreferrer">*instagram</a></li>
+    <li><a href="https://www.tiktok.com/@pyrodevill" target="_blank" rel="noopener noreferrer">*tiktok</a></li>
+    <li><a href="https://x.com/pyrothedevil" target="_blank" rel="noopener noreferrer">*twitter</a></li>
+    <li><a href="https://bsky.app/profile/pyrodevil.bsky.social" target="_blank" rel="noopener noreferrer">*bluesky</a></li>
+    <li><a href="mailto:pyrothedevil@gmail.com" target="_blank" rel="noopener noreferrer">*email</a></li>
+  </ul>
+</div>
+
+                            <div class="tab-column">
+                              <h2>pyro devil</h2>
+                              <ul>
+                                <li>*she/they</li>
+                                <li>*fr/eng</li>
+                                <li>*graphist
+                                    <br>designer</li>
+                                <li>*coser</li>
+                              </ul>
+                            </div>
+                          </div>
+                      </div>
+                         <div class="grid-com">
+                            <img src="images/com-open.png" alt="clickgrid" class="clickgrid">
+                        </div>
+                        <div id="tarifModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="tarifImage">
+                      </div>
+                      <div class="music-player">
+                             <div class="cd-wrapper">
+                        <div class="cd-container">
+                            <img src="images/cd.png" alt="cd-player" class="cd-player">
+    <div class="popup-track">
+        <div class="track-art"></div>
+        <div class="track-info">
+            <div class="track-name"></div>
+            <div class="track-artist"></div>
+        </div>
+    </div> <!-- closes popup-track -->
+                        </div>
+                                <div class="slider_container">
+                                    <div class="buttons">
+                                        <i class="fa-sharp fa-solid fa-play"></i>
+                                    </div>
+                                    <div class="time">
+                                        <div class="current-time">00:00</div><a>/</a><div class="total-duration">00:00</div>
+                                        <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+                                    </div>
+                                    <div class="volume-container">
+                                        <img src="images/Vector.png" alt="volume" class="volume-icon" onclick="toggleVolumeSlider()">
+                                        <input type="range" min="1" max="100" value="99" class="volume_slider">
+                                    </div>
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+                     
+                    </div>
+                         
+                
+                    <input type="radio" id="tabdesign" name="mytabs">
+                    <label for="tabdesign">design
+                    </label>
+                    <div class="tab">
+                        <div id="mediaOverlay" class="overlay">
+                            <span class="close-overlay">&times;</span>
+                            <img id="overlayImage" src="" alt="">
+                            <video id="overlayVideo" controls></video>
+                          </div>
+                          
+                      <h2>gallery | design</h2>
+                      <div class="gallery-box-design"></div>
+                    </div>
+                
+                    <input type="radio" id="tabillu" name="mytabs">
+                    <label for="tabillu">illustration</label>
+                    <div class="tab">
+                        <div id="mediaOverlay" class="overlay">
+                            <span class="close-overlay">&times;</span>
+                            <img id="overlayImage" src="" alt="">
+                            <video id="overlayVideo" controls></video>
+                          </div>
+                          
+                        <h2>gallery | illustration</h2>
+                        <div class="gallery-box"></div>
+                     
+                    </div>
+<script>
+  
+// === Mobile Popup Fallback for .popup-track ===
+const cdPlayer = document.querySelector('.cd-player');
+const popupTrack = document.querySelector('.popup-track');
+
+// Only run this logic on touch devices
+if (cdPlayer && popupTrack && ('ontouchstart' in window || navigator.maxTouchPoints)) {
+  cdPlayer.addEventListener('click', e => {
+    e.stopPropagation();
+    popupTrack.classList.toggle('visible');
+  });
+
+  // Hide popup if user taps outside
+  document.addEventListener('click', e => {
+    if (!cdPlayer.contains(e.target) && !popupTrack.contains(e.target)) {
+      popupTrack.classList.remove('visible');
+    }
+  });
+}
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("tarifModal");
+    const modalImg = document.getElementById("tarifImage");
+    const closeBtn = document.querySelector(".close");
+
+    document.querySelector(".clickgrid").addEventListener("click", function () {
+      modal.style.display = "block";
+      modalImg.src = "images/tarif.png";
+    });
+
+    closeBtn.onclick = function () {
+      modal.style.display = "none";
+    };
+
+    window.onclick = function (event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+  });
+document.addEventListener("DOMContentLoaded", () => {
+  // === Popup Drag & Close ===
+  const popup = document.getElementById('popup');
+  const header = popup.querySelector('.popup-header');
+  const closeBtn = document.getElementById('closeBtn');
+
+  closeBtn.onclick = () => { popup.style.display = 'none'; };
+
+  let isDragging = false, offsetX, offsetY;
+
+  header.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    offsetX = e.clientX - popup.offsetLeft;
+    offsetY = e.clientY - popup.offsetTop;
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+      popup.style.left = `${e.clientX - offsetX}px`;
+      popup.style.top = `${e.clientY - offsetY}px`;
+    }
+  });
+
+  document.addEventListener('mouseup', () => { isDragging = false; });
+
+  // === Tabs logic ===
+  const tabsContainer = document.querySelector(".mytabs");
+  const tabs = document.querySelectorAll(".mytabs input[type='radio']");
+
+  const updateIcons = () => {
+    tabs.forEach(input => {
+      const label = input.nextElementSibling;
+      label.querySelectorAll(".icon").forEach(icon => icon.remove());
+      const iconSrc = input.checked ? "images/Cross.svg" : "images/Cross-2.svg";
+      label.insertAdjacentHTML("beforeend", `<img src="${iconSrc}" alt="cross Icon" class="icon">`);
+    });
+  };
+
+  const moveTabToTop = input => {
+    const label = input.nextElementSibling;
+    const tab = label.nextElementSibling;
+    tabsContainer.prepend(input, label, tab);
+    updateIcons();
+  };
+
+  tabs.forEach(input => {
+    input.addEventListener("change", () => moveTabToTop(input));
+  });
+
+  updateIcons();
+  document.querySelector(".mytabs input:checked")?.dispatchEvent(new Event('change'));
+
+  // === Music Player ===
+  const music_list = [
+    { img: 'music/albums/mimew.jpg', name: 'Mimew', artist: 'YEZI', music: 'music/YEZI - Mimew.mp3' },
+    { img: 'music/albums/lifeifself.jpg', name: 'Life Itself', artist: 'Glass Animals', music: 'music/Glass Animals - Life Itself.mp3' },
+    { img: 'music/albums/undefeatable.jpg', name: 'Undefeatable', artist: 'Sonic Frontiers', music: 'music/Undefeatable - Sonic Frontiers.mp3' },
+    { img: 'music/albums/stateside.jpg', name: 'Stateside', artist: 'PinkPantheress', music: 'music/PinkPantheress - Stateside.mp3' }
+  ];
+
+  let trackIndex = 0, isPlaying = false, updateTimer;
+  const currTrack = new Audio();
+  const playBtn = document.querySelector('.buttons i');
+  const trackArt = document.querySelector('.cd-player');
+  const wave = document.querySelector('.buttons');
+  const volumeSlider = document.querySelector('.volume_slider');
+  const volumeIcon = document.querySelector('.volume-icon');
+  const volumeContainer = document.querySelector('.volume-container');
+  const seekSlider = document.querySelector('.seek_slider');
+  const currTime = document.querySelector('.current-time');
+  const totalDuration = document.querySelector('.total-duration');
+
+  const slider = document.querySelector('.seek_slider');
+  slider.addEventListener('input', function () {
+    const value = slider.value;
+    const max = slider.max;
+    const percentage = (value / max) * 100;
+    slider.style.background = `linear-gradient(to right, orange ${percentage}%, #000000 ${percentage}%)`;
+  });
+
+  const popupArt = document.querySelector('.track-art');
+  const popupName = document.querySelector('.track-name');
+  const popupArtist = document.querySelector('.track-artist');
+
+  const loadTrack = index => {
+    clearInterval(updateTimer);
+    currTrack.src = music_list[index].music;
+    currTrack.load();
+    setVolume();
+    popupArt.style.backgroundImage = `url('${music_list[index].img}')`;
+    popupName.textContent = music_list[index].name;
+    popupArtist.textContent = music_list[index].artist;
+  };
+
+  const playTrack = () => {
+    currTrack.play();
+    isPlaying = true;
+    trackArt.classList.add('rotate');
+    wave.classList.add('loader');
+    playBtn.className = "fa-solid fa-pause";
+    updateTimer = setInterval(updateProgress, 1000);
+  };
+
+  const pauseTrack = () => {
+    currTrack.pause();
+    isPlaying = false;
+    trackArt.classList.remove('rotate');
+    wave.classList.remove('loader');
+    playBtn.className = 'fa-sharp fa-solid fa-play';
+    clearInterval(updateTimer);
+  };
+
+  const playPause = () => isPlaying ? pauseTrack() : playTrack();
+  const nextTrack = () => { trackIndex = (trackIndex + 1) % music_list.length; loadTrack(trackIndex); playTrack(); };
+  const setVolume = () => { currTrack.volume = volumeSlider.value / 100; };
+  const seekTo = () => { currTrack.currentTime = currTrack.duration * (seekSlider.value / 100); };
+  const formatTime = sec => `${String(Math.floor(sec / 60)).padStart(2, '0')}:${String(Math.floor(sec % 60)).padStart(2, '0')}`;
+  const updateProgress = () => {
+    if (!isNaN(currTrack.duration)) {
+      seekSlider.value = currTrack.currentTime * (100 / currTrack.duration);
+      currTime.textContent = formatTime(currTrack.currentTime);
+      totalDuration.textContent = formatTime(currTrack.duration);
+    }
+  };
+
+  const toggleVolumeSlider = () => {
+    const isVisible = volumeSlider.style.display === 'block';
+    volumeSlider.style.display = isVisible ? 'none' : 'block';
+    document[isVisible ? 'removeEventListener' : 'addEventListener']('click', outsideClickListener);
+  };
+
+  const outsideClickListener = e => {
+    if (!volumeContainer.contains(e.target)) {
+      volumeSlider.style.display = 'none';
+      document.removeEventListener('click', outsideClickListener);
+    }
+  };
+
+  playBtn.addEventListener('click', playPause);
+  volumeSlider.addEventListener('input', setVolume);
+  volumeIcon.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleVolumeSlider();
+  });
+  seekSlider.addEventListener('change', seekTo);
+  currTrack.addEventListener('ended', nextTrack);
+  volumeSlider.style.display = 'none';
+  loadTrack(trackIndex);
+
+  
+
+  // === Gallery Logic ===
+  const galleryBoxIllu = document.querySelector('.gallery-box');
+  const imageFilesIllu = [
+    'illu/1.png', 'illu/2.png','illu/2-1.png', 'illu/3.png', 'illu/4.png',
+    'illu/5.png', 'illu/6.jpg','illu/6-1.jpg', 'illu/6-2.png',
+    'illu/7-1.mp4', 'illu/7-2.png', 'illu/7-3.png', 'illu/7-4.png', 'illu/7-5.png'
+  ];
+
+  const galleryBoxDesign = document.querySelector('.gallery-box-design');
+  const imageFilesDesign = [
+    'design/1.jpg', 'design/2.jpg','design/2-1.mp4', 'design/3.png', 'design/4.mp4',
+    'design/4-2.png', 'design/4-3.jpg','design/4-4.png', 'design/5.png',
+    'design/5-1.png', 'design/5-2.png', 'design/5-3.png', 'design/5-4.png', 'design/5-5.png', 'design/5-6.png',
+    'design/6.mp4', 'design/6-1.mp4', 'design/6-2.png', 'design/5-1.png', 'design/7.png', 'design/7-1.png',
+    'design/8.png','design/8-1.png', 'design/8-2.png', 'design/8-3.png', 'design/8-4.png', 'design/9.jpg',
+    'design/9-1.jpg', 'design/9-2.png', 'design/9-3.png', 'design/9-4.png',
+    'design/10.mp4', 'design/10-1.png', 'design/10-2.png', 'design/11.png', 'design/11-1.png','design/11-2.png', 'design/11-3.png',
+    'design/12.mp4', 'design/13.png', 'design/13-1.png','design/13-2.png', 'design/13-3.png', 'design/13-4.png', 'design/13-5.png',
+    'design/14.png','design/14-1.png'
+  ];
+
+  const groupFilesByNumber = files => {
+    const groups = {};
+    files.forEach(file => {
+      const name = file.split('/')[1];
+      const group = name.split('-')[0].split('.')[0];
+      groups[group] = groups[group] || [];
+      groups[group].push(file);
+    });
+    return groups;
+  };
+
+  const generateGallery = (container, groupedFiles, containerClass, galleryClass) => {
+    container.innerHTML = '';
+    Object.keys(groupedFiles).sort((a, b) => b - a).forEach(group => {
+      const wrapper = document.createElement('div');
+      wrapper.classList.add(containerClass);
+
+      const gallery = document.createElement('div');
+      gallery.classList.add(galleryClass);
+
+      const mediaElements = groupedFiles[group].map(file => {
+        const el = file.endsWith('.mp4') ? document.createElement('video') : document.createElement('img');
+        el.src = file;
+        if (file.endsWith('.mp4')) el.controls = true;
+        gallery.appendChild(el);
+        return el;
+      });
+
+      if (mediaElements.length) mediaElements[0].classList.add('active');
+
+      let current = 0;
+      const showMedia = i => {
+        mediaElements.forEach((el, idx) => el.classList.toggle('active', idx === i));
+      };
+
+      const navBtn = (cls, html, handler) => {
+        const btn = document.createElement('div');
+        btn.classList.add(cls);
+        btn.innerHTML = html;
+        btn.addEventListener('click', handler);
+        return btn;
+      };
+
+      wrapper.appendChild(gallery);
+      wrapper.appendChild(navBtn('prev', '&#10094;', () => {
+        current = (current - 1 + mediaElements.length) % mediaElements.length;
+        showMedia(current);
+      }));
+      wrapper.appendChild(navBtn('next', '&#10095;', () => {
+        current = (current + 1) % mediaElements.length;
+        showMedia(current);
+      }));
+
+      container.appendChild(wrapper);
+    });
+
+    initOverlayLogic(`.${containerClass}`);
+  };
+
+  const initOverlayLogic = containerSelector => {
+    const containers = document.querySelectorAll(containerSelector);
+    const overlay = document.getElementById('mediaOverlay');
+    const overlayImg = document.getElementById('overlayImage');
+    const overlayVideo = document.getElementById('overlayVideo');
+    const closeBtn = document.querySelector('.close-overlay');
+
+    containers.forEach(container => {
+      container.addEventListener('click', () => {
+        const activeImg = container.querySelector('img.active');
+        const activeVideo = container.querySelector('video.active');
+
+        if (activeImg) {
+          overlayImg.src = activeImg.src;
+          overlayImg.style.display = 'block';
+          overlayVideo.style.display = 'none';
+        } else if (activeVideo) {
+          overlayVideo.src = activeVideo.src;
+          overlayVideo.style.display = 'block';
+          overlayImg.style.display = 'none';
+        }
+
+        overlayImg.classList.remove('zoomed');
+        overlayVideo.classList.remove('zoomed');
+        overlay.style.display = 'flex';
+      });
+    });
+
+    const closeOverlay = () => {
+      overlay.style.display = 'none';
+      overlayImg.src = '';
+      overlayVideo.src = '';
+      overlayImg.classList.remove('zoomed');
+      overlayVideo.classList.remove('zoomed');
+    };
+
+    closeBtn.addEventListener('click', closeOverlay);
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) closeOverlay();
+    });
+
+    overlayImg.addEventListener('click', e => {
+      e.stopPropagation();
+      overlayImg.classList.toggle('zoomed');
+    });
+
+    overlayVideo.addEventListener('click', e => {
+      e.stopPropagation();
+      overlayVideo.classList.toggle('zoomed');
+    });
+  };
+
+  const groupedFilesIllu = groupFilesByNumber(imageFilesIllu);
+  const groupedFilesDesign = groupFilesByNumber(imageFilesDesign);
+
+  tabs.forEach(input => {
+    input.addEventListener('change', () => {
+      if (input.id === 'tabillu' && input.checked)
+        generateGallery(galleryBoxIllu, groupedFilesIllu, 'gallery-container', 'image-gallery');
+      if (input.id === 'tabdesign' && input.checked)
+        generateGallery(galleryBoxDesign, groupedFilesDesign, 'gallery-container-design', 'image-gallery-design');
+    });
+  });
+
+  if (document.getElementById('tabillu').checked)
+    generateGallery(galleryBoxIllu, groupedFilesIllu, 'gallery-container', 'image-gallery');
+  if (document.getElementById('tabdesign').checked)
+    generateGallery(galleryBoxDesign, groupedFilesDesign, 'gallery-container-design', 'image-gallery-design');
+});
+</script>
+
+
+
+
+</body>                        
+</html>
