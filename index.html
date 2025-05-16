@@ -15,6 +15,28 @@
                 font-style: normal;
             }
             
+@media (max-width: 780px) {
+  body {
+    transform: scale(0.5); 
+           background-size: 130vw 60vh;
+
+}
+.popup {
+        position: fixed;
+        top: 50%; 
+        left: 50%; 
+        transform: translate(-50%, -50%); 
+        width: 80%; 
+        max-width: 300px; 
+    }
+
+}
+               @media (prefers-color-scheme: dark) {
+        .container {
+            background-color: white !important;
+            color: black !important;
+        }
+    }
             body {
                 position: aboslute;
     
@@ -762,31 +784,6 @@ background: linear-gradient(to right, navy, #1e90ff);
   font-weight: bold;
   cursor: pointer;
 }
-     
-
-@media (max-width: 780px) {
-  body {
-    transform: scale(0.5); /* Scales everything by 80% */
-           background-size: 130vw 60vh; /* Reduce the background size relative to the viewport width */
-
-}
-.popup {
-        position: fixed; /* Use fixed positioning to ensure it's centered on the page */
-        top: 50%; /* Center vertically */
-        left: 50%; /* Center horizontally */
-        transform: translate(-50%, -50%); /* Offset by half of its own width and height */
-        width: 80%; /* Adjust width to make it responsive */
-        max-width: 300px; /* Set a maximum width to avoid overflow on large screens */
-    }
-
-}
-               @media (prefers-color-scheme: dark) {
-        .container {
-            background-color: white !important;
-            color: black !important;
-        }
-    }
-
  </style>
     </head>
     <body>
